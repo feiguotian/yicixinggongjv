@@ -3,11 +3,11 @@ import pytesseract
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
-from PIL import Image
-import io
+from pathlib import Path
 import time
 import streamlit as st
+from PIL import Image
+import io
 
 # 配置Tesseract路径（如果已安装，视情况而定）
 # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  # Windows 示例路径
@@ -18,10 +18,11 @@ options.add_argument("--headless")  # 无头模式
 options.add_argument("--no-sandbox")  # 禁用沙盒
 options.add_argument("--disable-gpu")  # 禁用 GPU 加速
 
-# 使用 WebDriverManager 自动下载并启动 ChromeDriver
-service = Service(ChromeDriverManager().install())
+# 设置 ChromeDriver 路径（与 app.py 在同一文件夹中）
+driver_path = Path("chromedriver.exe")
 
-# 启动浏览器
+# 使用 Selenium 启动 ChromeDriver
+service = Service(driver_path)
 driver = webdriver.Chrome(service=service, options=options)
 
 # 输入微博相册页面链接
@@ -65,6 +66,7 @@ if url:
             file_name="ocr_result.txt",
             mime="text/plain"
         )
+
     else:
         st.write("没有找到图片，请确保输入的微博链接正确，或者该页面没有图片。")
 
