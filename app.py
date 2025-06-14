@@ -1,19 +1,24 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
+import os
 import requests
 import pytesseract
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
 from PIL import Image
 import io
 import streamlit as st
 
-# 配置Tesseract路径（如果已安装，视情况而定）
-# pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+# 安装 Chrome 依赖
+os.system("apt-get update")
+os.system("apt-get install -y libnss3 libgdk-pixbuf2.0-0 libatk-bridge2.0-0 libxss1 libgdk-x11-2.0-0")
 
-# 设置无头浏览器
+# 配置 Chrome 浏览器选项
 options = Options()
-options.headless = True  # 启动无头模式，避免打开浏览器界面
+options.add_argument("--headless")  # 启动无头模式，避免打开浏览器界面
+options.add_argument("--no-sandbox")  # 禁用沙盒
+options.add_argument("--disable-gpu")  # 禁用 GPU 加速
 
 # 使用 WebDriverManager 自动下载并启动 ChromeDriver
 service = Service(ChromeDriverManager().install())
