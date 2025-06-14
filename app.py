@@ -1,6 +1,7 @@
 import requests
 import pytesseract
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from PIL import Image
@@ -15,7 +16,10 @@ options = Options()
 options.headless = True  # 启动无头模式，避免打开浏览器界面
 
 # 使用 WebDriverManager 自动下载并启动 ChromeDriver
-driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options)
+service = Service(ChromeDriverManager().install())
+
+# 启动 Chrome 浏览器
+driver = webdriver.Chrome(service=service, options=options)
 
 # 目标微博用户页面链接
 url = st.text_input('请输入微博用户主页链接', '')
