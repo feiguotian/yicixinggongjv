@@ -1,13 +1,13 @@
-import pytesseract
 import requests
+import pytesseract
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from PIL import Image
 import io
-import streamlit as st
 import time
+import streamlit as st
 
 # 配置Tesseract路径（如果已安装，视情况而定）
 # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  # Windows 示例路径
@@ -24,13 +24,13 @@ service = Service(ChromeDriverManager().install())
 # 启动浏览器
 driver = webdriver.Chrome(service=service, options=options)
 
-# 输入微博主页链接
-url = st.text_input('请输入微博用户主页链接', '')
+# 输入微博相册页面链接
+url = st.text_input('请输入微博相册页面链接', 'https://m.weibo.cn/p/second?containerid=1078031644724561_-_photoall&page=1&count=24&title=%E5%9B%BE%E7%89%87%E5%A2%99')
 
 if url:
     driver.get(url)
     time.sleep(5)  # 等待页面加载完成，确保图片加载
-    
+
     # 获取所有图片的 URL
     images = driver.find_elements_by_tag_name('img')
     image_urls = [img.get_attribute('src') for img in images if img.get_attribute('src')]
@@ -65,7 +65,6 @@ if url:
             file_name="ocr_result.txt",
             mime="text/plain"
         )
-
     else:
         st.write("没有找到图片，请确保输入的微博链接正确，或者该页面没有图片。")
 
