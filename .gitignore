@@ -1,0 +1,9 @@
+# 忽略图片文件夹
+images/
+
+# 忽略OCR结果文件
+ocr_result.txt
+
+# 忽略Python编译文件
+*.pyc
+__pycache__/
