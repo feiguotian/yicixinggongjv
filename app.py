@@ -1,11 +1,10 @@
+import os
+import requests
+import pytesseract
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-
-import os
-import requests
-import pytesseract
 from PIL import Image
 import io
 import streamlit as st
