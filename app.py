@@ -19,7 +19,7 @@ options.add_argument("--no-sandbox")  # 禁用沙盒
 options.add_argument("--disable-gpu")  # 禁用 GPU 加速
 
 # 设置 ChromeDriver 路径（与 app.py 在同一文件夹中）
-driver_path = Path("chromedriver.exe")
+driver_path = Path("chromedriver.exe")  # 使用相对路径
 
 # 使用 Selenium 启动 ChromeDriver
 service = Service(driver_path)
